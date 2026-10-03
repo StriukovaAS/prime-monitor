@@ -15,7 +15,3 @@ def find_duplicate_payments(df: pd.DataFrame, gap_minutes: int = 20) -> pd.DataF
     s = df.sort_values(["subscription_id", "amount", "paid_at"])
     gap = s.groupby(["subscription_id", "amount"])["paid_at"].diff()
     return s[gap < pd.Timedelta(minutes=gap_minutes)]
-
-def find_missing_channel(df: pd.DataFrame) -> pd.DataFrame:
-    """Возвращает строки витрины, у которых не заполнен канал привлечения."""
-    return df[df['acquisition_channel'].isna()]
